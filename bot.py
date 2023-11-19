@@ -1,5 +1,6 @@
 from pyrogram import Client
 from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
+
 api_id = '24316517'
 api_hash = 'ab33479d43c662f11cf9ae4b26350709'
 bot_token = '6922414869:AAEZ4iSuI2eTiLwlGDGbT-_h_18951vxgNM'
@@ -8,31 +9,40 @@ bot_token = '6922414869:AAEZ4iSuI2eTiLwlGDGbT-_h_18951vxgNM'
 source_channel_id = -1001845192858
 destination_channel_id = -1002121021005
 
-client = TelegramClient('session_name', api_id, api_hash)
+from pyrogram import Client
+from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
+
+app = Client("session_name", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
 async def add_users():
-    async with client:
-        # Get information about the source channel
-        source_channel = await client.get_entity(source_channel_id)
+    async with app:
+        try:
+            # Get information about the source channel
+            source_channel = await app.get_chat(source_channel_id)
 
-        # Get information about the destination channel
-        destination_channel = await client.get_entity(destination_channel_id)
+            # Get information about the destination channel
+            destination_channel = await app.get_chat(destination_channel_id)
 
-        # Check if the bot is an admin in both channels
-        source_admin = await client.get_permissions(source_channel)
-        destination_admin = await client.get_permissions(destination_channel)
+            # Check if the bot is an admin in both channels
+            source_admin = await app.get_chat_member(source_channel.id, app.get_me().id)
+            destination_admin = await app.get_chat_member(destination_channel.id, app.get_me().id)
 
-        if source_admin.is_creator and destination_admin.is_creator:
-            # Get all the participants from the source channel
-            participants = await client.get_participants(source_channel)
+            if source_admin.status == "administrator" and destination_admin.status == "administrator":
+                # Get all the members from the source channel
+                members = await app.get_chat_members(source_channel.id)
 
-            # Add each participant to the destination channel
-            for participant in participants:
-                try:
-                    await client(InviteToChannel(destination_channel, [InputChannel(participant.id, participant.access_hash)]))
-                    print(f"Added user {participant.id} to the destination channel.")
-                except Exception as e:
-                    print(f"Error adding user {participant.id} to the destination channel: {e}")
+                # Add each member to the destination channel
+                for member in members:
+                    try:
+                        await app.add_chat_members(destination_channel.id, member.user.id)
+                        print(f"Added user {member.user.id} to the destination channel.")
+                    except UserAlreadyParticipant:
+                        print(f"User {member.user.id} is already in the destination channel.")
+                    except Exception as e:
+                        print(f"Error adding user {member.user.id} to the destination channel: {e}")
+
+        except PeerIdInvalid:
+            print("Invalid source or destination channel ID.")
 
 if __name__ == '__main__':
-    client.loop.run_until_complete(add_users())
+    app.run(add_users)
