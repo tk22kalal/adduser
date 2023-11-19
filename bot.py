@@ -16,7 +16,7 @@ class Bot(Client):
 
     async def start(self):
         print("Bot started. Please forward a message from the source channel.")
-        await self.idle()
+        await super().start()
 
     @staticmethod
     def is_admin(user_id):
