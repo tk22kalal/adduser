@@ -6,18 +6,19 @@ api_id = '24316517'
 api_hash = 'ab33479d43c662f11cf9ae4b26350709'
 bot_token = '6922414869:AAEZ4iSuI2eTiLwlGDGbT-_h_18951vxgNM'
 
-source_channel_username = 'source_channel_username'
-destination_channel_username = 'destination_channel_username'
+# Replace these with the actual numeric IDs of your private channels
+source_channel_id = -1001845192858
+destination_channel_id = -1002121021005
 
 client = TelegramClient('session_name', api_id, api_hash)
 
 async def add_users():
     async with client:
         # Get information about the source channel
-        source_channel = await client.get_entity(source_channel_username)
+        source_channel = await client.get_entity(source_channel_id)
 
         # Get information about the destination channel
-        destination_channel = await client.get_entity(destination_channel_username)
+        destination_channel = await client.get_entity(destination_channel_id)
 
         # Check if the bot is an admin in both channels
         source_admin = await client.get_permissions(source_channel)
