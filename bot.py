@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
-from config import API_HASH, API_ID, TG_BOT_TOKEN
+from config import ADMINS, API_HASH, API_ID, TG_BOT_TOKEN
 
 class Bot(Client):
     def __init__(self):
