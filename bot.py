@@ -2,19 +2,19 @@ from pyrogram import Client
 from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
 from config import API_HASH, API_ID, TG_BOT_TOKEN, SOURCE_CHANNEL_ID, DESTINATION_CHANNEL_ID
 
-class Bot:
-    def __init__(self, api_id, api_hash, bot_token, source_channel_id, destination_channel_id):
-        self.api_id = API_ID
-        self.api_hash = API_HASH
-        self.bot_token = TG_BOT_TOKEN
-        self.source_channel_id = SOURCE_CHANNEL_ID
-        self.destination_channel_id = DESTINATION_CHANNEL_ID
-
-        self.app = Client(
-            "session_name",
-            api_id=self.api_id,
-            api_hash=self.api_hash,
-            bot_token=self.bot_token
+class Bot(Client):
+    def __init__(self):
+        super().__init__(
+            name="Bot",
+            api_hash=API_HASH,
+            api_id=APP_ID,
+            plugins={
+                "root": "plugins"
+            },
+            workers=TG_BOT_WORKERS,
+            bot_token=TG_BOT_TOKEN,
+            source_channel_id = SOURCE_CHANNEL_ID,
+            destination_channel_id = DESTINATION_CHANNEL_ID
         )
 
     async def add_users(self):
@@ -47,4 +47,8 @@ class Bot:
             except PeerIdInvalid:
                 print("Invalid source or destination channel ID.")
 
+bot = Bot()
+
+# Run the add_users method
+bot.run(bot.add_users)
 
