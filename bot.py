@@ -13,6 +13,7 @@ class Bot(Client):
         )
         self.source_channel_id = None
         self.destination_channel_id = None
+        self.admin_user_id = None
 
     async def start(self):
         print("Bot started. Please forward a message from the source channel.")
@@ -52,6 +53,9 @@ class Bot(Client):
                 destination_admin = await self.get_chat_member(destination_channel.id, (await self.get_me()).id)
 
                 if source_admin.status == "administrator" and destination_admin.status == "administrator":
+                    self.admin_user_id = user_id
+                    print(f"Both source and destination channels are configured. Starting to add users from the source channel to the destination channel.")
+
                     # Get all the members from the source channel
                     members = await self.get_chat_members(source_channel.id)
 
@@ -68,13 +72,18 @@ class Bot(Client):
             except PeerIdInvalid:
                 print("Invalid source or destination channel ID.")
 
-            await self.stop()
         else:
             print("Both source and destination channels are already configured.")
 
     async def on_message(self, message: Message):
-        await self.process_forward(message)
+        if message.text and message.text.lower() == '/start' and message.from_user.id == self.admin_user_id:
+            await self.start_configuration(message)
+        else:
+            await self.process_forward(message)
 
+    async def start_configuration(self, message: Message):
+        print(f"User {message.from_user.id} started the configuration process.")
+        print("Please forward a message from the source channel.")
 
 if __name__ == "__main__":
     bot = Bot()
