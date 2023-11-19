@@ -50,8 +50,3 @@ class Bot(Client):
 
 # Create an instance of the Bot class
 bot = Bot()
-
-# Run the add_users method
-await bot.start()
-await bot.add_users()
-await bot.stop()
