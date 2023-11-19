@@ -1,7 +1,15 @@
 from bot import Bot
 
-# Create an instance of the Bot class
-bot_instance = Bot()
+async def main():
+    # Create an instance of the Bot class
+    bot = Bot()
 
-# Run the specific method (e.g., add_users)
-bot_instance.run(bot_instance.add_users)
+    # Run the add_users method
+    await bot.start()
+    await bot.add_users()
+    await bot.stop()
+
+# Run the main function
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
