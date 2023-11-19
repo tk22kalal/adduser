@@ -1,7 +1,5 @@
-from telethon.sync import TelegramClient
-from telethon.tl.functions.channels import InviteToChannel
-from telethon.tl.types import InputChannel
-
+from pyrogram import Client
+from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
 api_id = '24316517'
 api_hash = 'ab33479d43c662f11cf9ae4b26350709'
 bot_token = '6922414869:AAEZ4iSuI2eTiLwlGDGbT-_h_18951vxgNM'
