@@ -11,7 +11,6 @@ class Bot(Client):
             plugins={
                 "root": "plugins"
             },
-            workers=TG_BOT_WORKERS,
             bot_token=TG_BOT_TOKEN,
             source_channel_id = SOURCE_CHANNEL_ID,
             destination_channel_id = DESTINATION_CHANNEL_ID
