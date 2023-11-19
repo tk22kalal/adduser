@@ -2,7 +2,9 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
+SOURCE_CHANNEL_ID = int(os.environ.get("SOURCE_CHANNEL_ID", ""))
 
+DESTINATION_CHANNEL_ID = int(os.environ.get("DESTINATION_CHANNEL_ID", ""))
 
 #Bot token @Botfather
 TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
