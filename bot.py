@@ -54,4 +54,5 @@ if __name__ == '__main__':
         source_channel_id=-1001845192858,
         destination_channel_id=-1002121021005
     )
-    bot.app.run(bot.add_users)
+    bot.app.run(bot.add_users())
+
