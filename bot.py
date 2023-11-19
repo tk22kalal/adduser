@@ -8,9 +8,6 @@ class Bot(Client):
             name="Bot",
             api_hash=API_HASH,
             api_id=API_ID,
-            plugins={
-                "root": "plugins"
-            },
             bot_token=TG_BOT_TOKEN,
             # Remove source_channel_id and destination_channel_id from here
         )
