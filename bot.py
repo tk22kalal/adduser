@@ -18,11 +18,6 @@ class Bot(Client):
         print("Bot started. Please forward a message from the source channel.")
         await super().start()
 
-    @staticmethod
-    def is_admin(user_id):
-        # Check if the user is an admin (you can modify this logic based on your requirements)
-        return True
-
     async def process_forward(self, message: Message):
         user_id = message.from_user.id
 
