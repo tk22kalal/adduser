@@ -1,13 +1,14 @@
 from pyrogram import Client
 from pyrogram.errors import PeerIdInvalid, UserAlreadyParticipant
+from config import API_HASH, API_ID, TG_BOT_TOKEN, SOURCE_CHANNEL_ID, DESTINATION_CHANNEL_ID
 
 class Bot:
     def __init__(self, api_id, api_hash, bot_token, source_channel_id, destination_channel_id):
-        self.api_id = api_id
-        self.api_hash = api_hash
-        self.bot_token = bot_token
-        self.source_channel_id = source_channel_id
-        self.destination_channel_id = destination_channel_id
+        self.api_id = API_ID
+        self.api_hash = API_HASH
+        self.bot_token = TG_BOT_TOKEN
+        self.source_channel_id = SOURCE_CHANNEL_ID
+        self.destination_channel_id = DESTINATION_CHANNEL_ID
 
         self.app = Client(
             "session_name",
